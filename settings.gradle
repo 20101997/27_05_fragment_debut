@@ -1,0 +1,6 @@
+include ':rfid'
+include ':CAENRFIDLibrary'
+include ':domain'
+include ':data'
+include ':app'
+rootProject.name = "STS Trasporti"
