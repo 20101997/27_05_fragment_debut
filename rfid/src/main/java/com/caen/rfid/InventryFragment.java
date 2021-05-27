@@ -214,16 +214,6 @@ public class InventryFragment extends Fragment implements CAENRFIDBLEConnectionE
         }
     }
 
-/*    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (inventoryRunning()) {
-            Toast.makeText(getActivity().getApplicationContext(), "Must stop inventory",
-                    Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        return true;
-    }*/
 
     private boolean inventoryRunning() {
         return _inventory_task != null && _inventory_task.running();
@@ -264,14 +254,6 @@ public class InventryFragment extends Fragment implements CAENRFIDBLEConnectionE
                     return;
                 }
                 mSelectedTag = position;
-                ExecutorService mExecutorService = Executors.newFixedThreadPool(1);
-     /*           FutureTask<AlertDialog.Builder> contextMenuTask = new FutureTask<>(
-                       new Callable<AlertDialog.Builder>() {
-
-                            @Override
-                            public AlertDialog.Builder call() {
-
-                                AlertDialog.Builder builder = new AlertDialog.Builder(InventoryActivity.this);
                                 Bundle b = new Bundle();
                                 String s1 = mRFIDTagAdapter.getItem(
                                         mSelectedTag).getId();
@@ -282,23 +264,7 @@ public class InventryFragment extends Fragment implements CAENRFIDBLEConnectionE
                                 randw.putExtras(b);
                                 startActivityForResult(randw, 0);
 
-                                return builder;
-                            }
-                        });
-                mExecutorService.execute(contextMenuTask);
-                mExecutorService.shutdownNow();
-                AlertDialog.Builder alertDialogBuilder = null;
-                try {
-                    alertDialogBuilder = contextMenuTask.get();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }*/
-               /* if (alertDialogBuilder == null)
-                    Toast.makeText(InventoryActivity.this, "Please, put tag on the antenna...", Toast.LENGTH_SHORT).show();
-                else
-                    alertDialogBuilder.create().show();*/
+
             }
 
         };
@@ -319,20 +285,19 @@ public class InventryFragment extends Fragment implements CAENRFIDBLEConnectionE
         });
 
 
-  /*      @Override
-        protected void onDestroyView() {
-            mReader.getReader().removeCAENRFIDBLEConnectionEventListener(this);
-            super.onDestroy();
-            if (inventoryRunning()) {
-                mButtonInventory.setText(R.string.inventory_button_start);
-                mButtonInventory.setEnabled(false);
-                stopInventory();
-            }
-            controllerActivity.returnFromActivity = true;
-        }*/
-
-
         return v;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mReader.getReader().removeCAENRFIDBLEConnectionEventListener(this);
+        super.onDestroy();
+        if (inventoryRunning()) {
+            mButtonInventory.setText(R.string.inventory_button_start);
+            mButtonInventory.setEnabled(false);
+            stopInventory();
+        }
+        controllerActivity.returnFromActivity = true;
+    }
 }

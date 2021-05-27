@@ -3,7 +3,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -11,7 +10,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.app.AlertDialog;
 import com.caen.BLEPort.BLEPortEvent;
 import com.caen.RFIDLibrary.CAENRFIDBLEConnectionEventListener;
 import com.caen.RFIDLibrary.CAENRFIDEvent;
@@ -22,14 +20,9 @@ import com.caen.RFIDLibrary.CAENRFIDLogicalSourceConstants;
 import com.caen.RFIDLibrary.CAENRFIDNotify;
 import com.caen.RFIDLibrary.CAENRFIDReader;
 import java.util.Hashtable;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.FutureTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class InventoryActivity extends AppCompatActivity implements CAENRFIDBLEConnectionEventListener {
+public class InventoryActivity extends AppCompatActivity {
 
 /*    public static final short MAX_TAGS_PER_LIST = 700;
     public static Hashtable<String, Integer> mTagListPosition;
@@ -45,19 +38,20 @@ public class InventoryActivity extends AppCompatActivity implements CAENRFIDBLEC
     protected static long mCurrentFoundTime;
     InventoryTask _inventory_task = null;*/
 
+/*
     @Override
     public void onBLEConnectionEvent(CAENRFIDReader caenrfidReader, BLEPortEvent blePortEvent) {
- /*       if (blePortEvent.getEvent().equals(BLEPortEvent.ConnectionEvent.CONNECTION_LOST))
+        if (blePortEvent.getEvent().equals(BLEPortEvent.ConnectionEvent.CONNECTION_LOST))
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     finish();
                 }
-            });*/
+            });
     }
 
 
-/*    class InventoryTask extends AsyncTask<Object, Object, Void>
+    class InventoryTask extends AsyncTask<Object, Object, Void>
             implements CAENRFIDEventListener {
 
         private boolean _running = false;
@@ -169,7 +163,8 @@ public class InventoryActivity extends AppCompatActivity implements CAENRFIDBLEC
             this.publishProgress((Object[]) evt.getData().toArray(new CAENRFIDNotify[0]));
 
         }
-    }*/
+    }
+*/
 
 
     @Override
@@ -178,8 +173,8 @@ public class InventoryActivity extends AppCompatActivity implements CAENRFIDBLEC
         setContentView(R.layout.inventory_selection);
 
 
-
-/*        reader_position = controllerActivity.Selected_Reader;
+/*
+        reader_position = controllerActivity.Selected_Reader;
         mReader = controllerActivity.Readers.get(controllerActivity.Selected_Reader);
         mRFIDTagAdapter = new RFIDTagAdapter(getApplicationContext(), R.id.inventory_list);
         mButtonInventory = this.findViewById(R.id.inventory_button);
@@ -201,14 +196,7 @@ public class InventoryActivity extends AppCompatActivity implements CAENRFIDBLEC
                     return;
                 }
                 mSelectedTag = position;
-                ExecutorService mExecutorService = Executors.newFixedThreadPool(1);
-                FutureTask<AlertDialog.Builder> contextMenuTask = new FutureTask<>(
-                        new Callable<AlertDialog.Builder>() {
 
-                            @Override
-                            public AlertDialog.Builder call() {
-
-                                AlertDialog.Builder builder = new AlertDialog.Builder(InventoryActivity.this);
                                 Bundle b = new Bundle();
                                 String s1 = mRFIDTagAdapter.getItem(
                                         mSelectedTag).getId();
@@ -219,23 +207,6 @@ public class InventoryActivity extends AppCompatActivity implements CAENRFIDBLEC
                                 randw.putExtras(b);
                                 startActivityForResult(randw, 0);
 
-                               return builder;
-                            }
-                        });
-                mExecutorService.execute(contextMenuTask);
-                mExecutorService.shutdownNow();
-                AlertDialog.Builder alertDialogBuilder = null;
-                try {
-                    alertDialogBuilder = contextMenuTask.get();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                if (alertDialogBuilder == null)
-                    Toast.makeText(InventoryActivity.this, "Please, put tag on the antenna...", Toast.LENGTH_SHORT).show();
-                else
-                    alertDialogBuilder.create().show();
             }
 
         };
@@ -249,8 +220,7 @@ public class InventoryActivity extends AppCompatActivity implements CAENRFIDBLEC
 
     }
 
-/*
-    @Override
+/*    @Override
     protected void onDestroy() {
         mReader.getReader().removeCAENRFIDBLEConnectionEventListener(this);
         super.onDestroy();
@@ -261,10 +231,8 @@ public class InventoryActivity extends AppCompatActivity implements CAENRFIDBLEC
         }
         controllerActivity.returnFromActivity = true;
     }
-*/
 
 
-/*
 
     public void doInventoryAction(View v) {
         mButtonInventory.setEnabled(false);
@@ -293,27 +261,15 @@ public class InventoryActivity extends AppCompatActivity implements CAENRFIDBLEC
         }
     }
 
-*/
 
-/*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (inventoryRunning()) {
-            Toast.makeText(getApplicationContext(), "Must stop inventory",
-                    Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        return true;
-    }
 
     private boolean inventoryRunning() {
         return _inventory_task != null && _inventory_task.running();
     }
 
 
-*/
+    @Override
+    public void onBLEConnectionEvent(CAENRFIDReader caenrfidReader, BLEPortEvent blePortEvent) {
 
-
-
+    }*/
 }
