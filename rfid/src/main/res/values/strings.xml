@@ -19,11 +19,12 @@
     <string name="easy_controller_products_description">demo</string>
 
 
-
     <string name="_0">0</string>
 
 
     <string name="title_activity_bleselection">BLE connection</string>
     <string name="banner">Easy Controller</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

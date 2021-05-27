@@ -1,4 +1,4 @@
-package com.caen.easyController;
+package com.caen.rfid;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -31,7 +31,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class InventoryActivity extends AppCompatActivity implements CAENRFIDBLEConnectionEventListener {
 
-    public static final short MAX_TAGS_PER_LIST = 700;
+/*    public static final short MAX_TAGS_PER_LIST = 700;
     public static Hashtable<String, Integer> mTagListPosition;
     public static int mSelectedTag;
     protected DemoReader mReader;
@@ -43,21 +43,21 @@ public class InventoryActivity extends AppCompatActivity implements CAENRFIDBLEC
 
     protected static AtomicInteger mCurrentFoundNum;
     protected static long mCurrentFoundTime;
-    InventoryTask _inventory_task = null;
+    InventoryTask _inventory_task = null;*/
 
     @Override
     public void onBLEConnectionEvent(CAENRFIDReader caenrfidReader, BLEPortEvent blePortEvent) {
-        if (blePortEvent.getEvent().equals(BLEPortEvent.ConnectionEvent.CONNECTION_LOST))
+ /*       if (blePortEvent.getEvent().equals(BLEPortEvent.ConnectionEvent.CONNECTION_LOST))
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     finish();
                 }
-            });
+            });*/
     }
 
 
-    class InventoryTask extends AsyncTask<Object, Object, Void>
+/*    class InventoryTask extends AsyncTask<Object, Object, Void>
             implements CAENRFIDEventListener {
 
         private boolean _running = false;
@@ -169,12 +169,9 @@ public class InventoryActivity extends AppCompatActivity implements CAENRFIDBLEC
             this.publishProgress((Object[]) evt.getData().toArray(new CAENRFIDNotify[0]));
 
         }
-    }
+    }*/
 
 
-    /**
-     * Called when the activity is first created.
-     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -182,7 +179,7 @@ public class InventoryActivity extends AppCompatActivity implements CAENRFIDBLEC
 
 
 
-        reader_position = controllerActivity.Selected_Reader;
+/*        reader_position = controllerActivity.Selected_Reader;
         mReader = controllerActivity.Readers.get(controllerActivity.Selected_Reader);
         mRFIDTagAdapter = new RFIDTagAdapter(getApplicationContext(), R.id.inventory_list);
         mButtonInventory = this.findViewById(R.id.inventory_button);
@@ -248,10 +245,11 @@ public class InventoryActivity extends AppCompatActivity implements CAENRFIDBLEC
 
         mTagListPosition = new Hashtable<>(MAX_TAGS_PER_LIST);
         mCurrentFoundNum = new AtomicInteger(0);
-        mCurrentFoundTime = 0;
+        mCurrentFoundTime = 0;*/
 
     }
 
+/*
     @Override
     protected void onDestroy() {
         mReader.getReader().removeCAENRFIDBLEConnectionEventListener(this);
@@ -263,8 +261,10 @@ public class InventoryActivity extends AppCompatActivity implements CAENRFIDBLEC
         }
         controllerActivity.returnFromActivity = true;
     }
+*/
 
 
+/*
 
     public void doInventoryAction(View v) {
         mButtonInventory.setEnabled(false);
@@ -293,7 +293,9 @@ public class InventoryActivity extends AppCompatActivity implements CAENRFIDBLEC
         }
     }
 
+*/
 
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (inventoryRunning()) {
@@ -310,6 +312,7 @@ public class InventoryActivity extends AppCompatActivity implements CAENRFIDBLEC
     }
 
 
+*/
 
 
 

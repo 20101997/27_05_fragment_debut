@@ -42,7 +42,7 @@ class DepartmentActionFragment : Fragment(R.layout.fragment_department_action) {
 
         binding.cvDelivery.setOnClickListener {
             mainViewModel.selectedActionType = ActionType.DELIVERY
-            findNavController().navigate(DepartmentActionFragmentDirections.actionDepartmentActionFragmentToContainerNavigation())
+           // findNavController().navigate(DepartmentActionFragmentDirections.actionDepartmentActionFragmentToContainerNavigation())
         }
 
         binding.cvCollect.setOnClickListener {

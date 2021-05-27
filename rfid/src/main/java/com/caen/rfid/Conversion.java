@@ -1,6 +1,4 @@
-package com.caen.easyController;
-
-import java.util.Date;
+package com.caen.rfid;
 
 public class Conversion {
 

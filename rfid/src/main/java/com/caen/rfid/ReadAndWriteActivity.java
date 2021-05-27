@@ -1,4 +1,4 @@
-package com.caen.easyController;
+package com.caen.rfid;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;

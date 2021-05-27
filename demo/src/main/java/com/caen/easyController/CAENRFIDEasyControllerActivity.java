@@ -1,4 +1,4 @@
-package com.caen.easyController;
+package com.caen.rfid;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;

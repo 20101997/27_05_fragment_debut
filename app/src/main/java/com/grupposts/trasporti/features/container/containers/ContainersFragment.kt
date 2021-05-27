@@ -85,7 +85,11 @@ class ContainersFragment : Fragment(R.layout.fragment_containers) {
             }
 
             btnSignWithdrawal.setOnClickListener {
-                findNavController().navigate(ContainersFragmentDirections.actionContainersFragmentToSignatureFragment())
+              /*  when(mainViewModel.selectedActionType) {
+                    ActionType.WITHDRAWAL ->*/
+                    findNavController().navigate(ContainersFragmentDirections.actionContainersFragmentToSignatureFragment())
+
+             /*   }*/
             }
 
             adapter = ContainerListAdapter({ container, name ->

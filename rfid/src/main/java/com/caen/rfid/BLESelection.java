@@ -1,4 +1,4 @@
-package com.caen.easyController;
+package com.caen.rfid;
 import android.Manifest;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;

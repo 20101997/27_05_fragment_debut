@@ -1,4 +1,4 @@
-package com.caen.easyController;
+package com.caen.rfid;
 
 import java.util.ArrayList;
 

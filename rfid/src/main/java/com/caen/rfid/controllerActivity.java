@@ -1,4 +1,4 @@
-package com.caen.easyController;
+package com.caen.rfid;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
@@ -152,7 +152,7 @@ public class controllerActivity extends AppCompatActivity implements CAENRFIDBLE
 						"Error retrieving info from reader...",
 						Toast.LENGTH_SHORT).show();
 			} else {
-				updateReadersList();
+			//	updateReadersList();
 			}
 			tcpBtWaitProgressDialog.dismiss();
 		}
@@ -235,7 +235,7 @@ public class controllerActivity extends AppCompatActivity implements CAENRFIDBLE
 	}
 
 	public void updateReadersList() {
-		if (Readers != null) {
+/*		if (Readers != null) {
 			((ListView) findViewById(R.id.reader_list)).setAdapter(null);
 			data.clear();
 
@@ -256,7 +256,7 @@ public class controllerActivity extends AppCompatActivity implements CAENRFIDBLE
 				R.layout.list_reader, from, to);
 		adapter.notifyDataSetChanged();
 
-		((ListView) findViewById(R.id.reader_list)).setAdapter(adapter);
+		((ListView) findViewById(R.id.reader_list)).setAdapter(adapter);*/
 	}
 
 	public void addNewReaderActivity(View v) {
