@@ -1,4 +1,4 @@
-package com.caen.rfid;
+package com.caen.rfid.models;
 
 
 import com.caen.RFIDLibrary.CAENRFIDException;

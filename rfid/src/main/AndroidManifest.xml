@@ -26,7 +26,6 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup"
         tools:targetApi="q">
-        <activity android:name="com.caen.rfid.testActivity"></activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -41,7 +40,7 @@
         </provider>
 
         <activity
-            android:name="com.caen.rfid.controllerActivity"
+            android:name="com.caen.rfid.mainActivity"
             android:configChanges="orientation"
             android:label="@string/app_name">
             <intent-filter>

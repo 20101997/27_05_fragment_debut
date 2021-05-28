@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_rfid"
+
+    app:startDestination="@id/main">
+
+    <activity
+        android:id="@+id/main"
+        android:name="com.caen.rfid.mainActivity"
+        android:label="mainActivity"
+        tools:layout="@layout/main">
+        <action
+            android:id="@+id/action_main_to_BleSelection_navigation"
+            app:destination="@id/BLESelection" />
+        <!--<action
+            android:id="@+id/action_main_to_inventry_navigation"
+            app:destination="@id/inventry" />-->
+    </activity>
+
+
+    <activity
+        android:id="@+id/BLESelection"
+        android:name="com.caen.rfid.BLESelection"
+        android:label="BLESelection"
+        tools:layout="@layout/activity_b_l_e_selection"/>
+    <action
+        android:id="@+id/action_BleSelection_to_main_navigation"
+        app:destination="@id/main" />
+    <activity
+        android:id="@+id/inventoryActivity"
+        android:name="com.caen.rfid.InventoryActivity"
+        android:label="InventoryActivity"
+        tools:layout="@layout/inventory_selection"/>
+    <activity
+        android:id="@+id/readAndWriteActivity"
+        android:name="com.caen.rfid.ReadAndWriteActivity"
+        android:label="ReadAndWriteActivity"
+        tools:layout="@layout/read_and_write_activity"/>
+</navigation>

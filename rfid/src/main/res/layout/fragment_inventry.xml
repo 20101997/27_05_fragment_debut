@@ -36,6 +36,16 @@
             style="@style/Widget.App.Button"
             android:text="@string/inventory_button_start" />
 
+        <!--       <Button
+                   android:id="@+id/clear_button"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="10dp"
+                   android:padding="16dp"
+                   style="@style/Widget.App.Button"
+                   android:text="
+                  @string/clear_button" />-->
+
     </LinearLayout>
     <LinearLayout
         android:id="@+id/linearLayout1"

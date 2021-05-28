@@ -7,42 +7,34 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
+
 import com.caen.BLEPort.BLEPortEvent;
 import com.caen.RFIDLibrary.CAENRFIDBLEConnectionEventListener;
 import com.caen.RFIDLibrary.CAENRFIDException;
 import com.caen.RFIDLibrary.CAENRFIDPort;
 import com.caen.RFIDLibrary.CAENRFIDReader;
 import com.caen.RFIDLibrary.CAENRFIDReaderInfo;
+import com.caen.rfid.models.DemoReader;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Vector;
-public class controllerActivity extends AppCompatActivity implements CAENRFIDBLEConnectionEventListener {
-
-	protected static final int DO_INVENTORY = 3;
+public class mainActivity extends AppCompatActivity implements CAENRFIDBLEConnectionEventListener {
 	protected static final int ADD_READER_BLE = 4;
-	protected static boolean STARTED = true;
 	protected static boolean DESTROYED = false;
 	private final ArrayList<HashMap<String, Object>> data = new ArrayList<HashMap<String, Object>>();
-	private SimpleAdapter adapter;
 	public static boolean returnFromActivity = false;
-
-	private static boolean exitFromApp = false;
 
 	public static Vector<DemoReader> Readers;
 
 	public static int Selected_Reader;
 
-	private Toolbar toolbar;
 	private TextView toolbarTitle;
 	private TextView toolbarSubtitle;
 
@@ -51,17 +43,17 @@ public class controllerActivity extends AppCompatActivity implements CAENRFIDBLE
 
 	@Override
 	public void onBLEConnectionEvent(final CAENRFIDReader caenrfidReader, final BLEPortEvent blePortEvent) {
-		// when we change something on the ui
+/*		// when we change something on the ui
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
 				if (DESTROYED)
 					return;
-				if (blePortEvent.getEvent().equals(BLEPortEvent.ConnectionEvent.CONNECTION_LOST) ||
+			*//*	if (blePortEvent.getEvent().equals(BLEPortEvent.ConnectionEvent.CONNECTION_LOST) ||
 						blePortEvent.getEvent().equals(BLEPortEvent.ConnectionEvent.CONNECTION_CLOSED)
 				) {
 					int pos = 0;
-					Vector<Integer> toRemove = new Vector<Integer>();
+				//	Vector<Integer> toRemove = new Vector<Integer>();
 					for (DemoReader demoReader : Readers) {
 						try {
 							if (
@@ -69,25 +61,24 @@ public class controllerActivity extends AppCompatActivity implements CAENRFIDBLE
 											&& demoReader.getReader().equals(caenrfidReader)
 							) {
 								data.remove(pos);
-								adapter.notifyDataSetChanged();
 								demoReader.getReader().Disconnect();
-								toRemove.add(pos);
+							//	toRemove.add(pos);
 							}
 						} catch (CAENRFIDException e) {
 							e.printStackTrace();
-							toRemove.add(pos);
+						//	toRemove.add(pos);
 						}
 						pos++;
 					}
-					for (int i = 0; i < toRemove.size(); i++) {
+				*//**//*	for (int i = 0; i < toRemove.size(); i++) {
 						Readers.remove(toRemove.get(i).intValue());
-					}
+					}*//**//*
 					Toast.makeText(getApplicationContext(),
 							"BLE device disconnected!", Toast.LENGTH_SHORT)
 							.show();
-				}
+				}*//*
 			}
-		});
+		});*/
 
 	}
 
@@ -100,7 +91,6 @@ public class controllerActivity extends AppCompatActivity implements CAENRFIDBLE
 
 		BLEConnector ( BluetoothDevice device) {
 			bleDevice = device;
-			setName("BLEConnector");
 		}
 
 		@Override
@@ -111,7 +101,7 @@ public class controllerActivity extends AppCompatActivity implements CAENRFIDBLE
 			CAENRFIDReaderInfo info = null;
 			String fwrel = null;
 			try {
-				r.addCAENRFIDBLEConnectionEventListener(controllerActivity.this);
+				r.addCAENRFIDBLEConnectionEventListener(mainActivity.this);
 				r.Connect(getApplicationContext(),bleDevice);
 			} catch (CAENRFIDException e) {
 				error1 = true;
@@ -129,9 +119,12 @@ public class controllerActivity extends AppCompatActivity implements CAENRFIDBLE
 							info.GetModel(), info.GetSerialNumber(), fwrel,
 							CAENRFIDPort.CAENRFID_BLE);
 					Readers.add(dr);
+					/*FragmentManager fm =getSupportFragmentManager();
+					InventryFragment inventryFragment = new InventryFragment();
+					fm.beginTransaction().replace(R.id.main,inventryFragment).commit();*/
 					Intent do_inventory = new Intent(getApplicationContext(),
 							InventoryActivity.class);
-					startActivityForResult(do_inventory, DO_INVENTORY);
+					startActivity(do_inventory);
 				}
 			}
 			runOnUiThread(new Runnable() {
@@ -162,102 +155,28 @@ public class controllerActivity extends AppCompatActivity implements CAENRFIDBLE
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		//toolbar = this.findViewById(R.id.toolbar);
 		toolbarTitle = this.findViewById(R.id.toolbar_title);
 		toolbarTitle.setText("Choose readers");
 		toolbarSubtitle = this.findViewById(R.id.toolbar_subtitle);
 		toolbarSubtitle.setText("Available readers");
 
 
-		if (!controllerActivity.returnFromActivity) {
+		if (!mainActivity.returnFromActivity) {
 			Readers = new Vector<>();
 		} else
-			controllerActivity.returnFromActivity = false;
-
-
-
+			mainActivity.returnFromActivity = false;
 
 
 	}
 
 
 
-	@Override
-	protected void onStart() {
-		super.onStart();
-		STARTED = true;
-		DESTROYED = false;
-		ListView lv = this.findViewById(R.id.reader_list);
-
-
-		lv.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-									int position, long id) {
-				//pass reader position
-				Selected_Reader = position;
-				Intent do_inventory = new Intent(getApplicationContext(),
-						InventoryActivity.class);
-				startActivityForResult(do_inventory, DO_INVENTORY);
-			}
-		});
-	}
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		DESTROYED = true;
-		if (controllerActivity.exitFromApp) {
-			for (DemoReader demoReader : Readers) {
-				try {
-
-					if ((demoReader.getConnectionType().equals(
-							CAENRFIDPort.CAENRFID_BLE) && BluetoothAdapter
-							.getDefaultAdapter().isEnabled()))
-					{
-						demoReader.getReader().Disconnect();
-						demoReader.getReader().removeCAENRFIDBLEConnectionEventListener(controllerActivity.this);
-					}
-				} catch (CAENRFIDException e) {
-					e.printStackTrace();
-				}
-			}
-			Readers = null;
-		}
-
-		exitFromApp = false;
-		returnFromActivity = false;
-	}
 
 	public Activity getActivity() {
 		return this;
 	}
 
-	public void updateReadersList() {
-/*		if (Readers != null) {
-			((ListView) findViewById(R.id.reader_list)).setAdapter(null);
-			data.clear();
 
-			for (int i = 0; i < Readers.size(); i++) {
-				DemoReader r = Readers.get(i);
-
-				HashMap<String, Object> readerMap = new HashMap<>();
-
-				readerMap.put("name", r.getReaderName());
-				readerMap.put("info", "Serial: " + r.getSerialNumber());
-				data.add(readerMap);
-			}
-		}
-		String[] from = { "image", "name", "info" };
-		int[] to = { R.id.reader_image, R.id.reader_name, R.id.reader_info };
-
-		adapter = new SimpleAdapter(getApplicationContext(), data,
-				R.layout.list_reader, from, to);
-		adapter.notifyDataSetChanged();
-
-		((ListView) findViewById(R.id.reader_list)).setAdapter(adapter);*/
-	}
 
 	public void addNewReaderActivity(View v) {
 			if (BluetoothAdapter.getDefaultAdapter() == null) {
@@ -266,8 +185,7 @@ public class controllerActivity extends AppCompatActivity implements CAENRFIDBLE
 			}
 			Intent addReader = new Intent(getApplicationContext(),
 					BLESelection.class);
-			getActivity().startActivityForResult(addReader,
-					ADD_READER_BLE);
+			getActivity().startActivityForResult(addReader, ADD_READER_BLE);
 		}
 
 
@@ -285,8 +203,6 @@ public class controllerActivity extends AppCompatActivity implements CAENRFIDBLE
 						new BLEConnector(device).start();
 					}
 				}
-
-
 
 	}
 

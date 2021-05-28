@@ -1,4 +1,4 @@
-package com.caen.rfid;
+package com.caen.rfid.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

@@ -14,33 +14,19 @@ import java.util.Hashtable;
 import java.util.concurrent.atomic.AtomicInteger;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.app.AlertDialog;
-import com.caen.BLEPort.BLEPortEvent;
-import com.caen.RFIDLibrary.CAENRFIDBLEConnectionEventListener;
+
 import com.caen.RFIDLibrary.CAENRFIDEvent;
 import com.caen.RFIDLibrary.CAENRFIDEventListener;
 import com.caen.RFIDLibrary.CAENRFIDException;
 import com.caen.RFIDLibrary.CAENRFIDLogicalSource;
 import com.caen.RFIDLibrary.CAENRFIDLogicalSourceConstants;
 import com.caen.RFIDLibrary.CAENRFIDNotify;
-import com.caen.RFIDLibrary.CAENRFIDReader;
-import java.util.Hashtable;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.FutureTask;
-import java.util.concurrent.atomic.AtomicInteger;
+import com.caen.rfid.models.DemoReader;
+import com.caen.rfid.models.RFIDTag;
+import com.caen.rfid.models.RFIDTagAdapter;
 
 
 public class InventryFragment extends Fragment implements CAENRFIDBLEConnectionEventListener {
@@ -175,8 +161,8 @@ public class InventryFragment extends Fragment implements CAENRFIDBLEConnectionE
 
         @Override
         protected void onPostExecute(Void unused) {
-        /*    Toast.makeText(InventryFragment.this, "Done!", Toast.LENGTH_SHORT)
-                    .show();*/
+            Toast.makeText(getActivity().getApplicationContext(), "Done!", Toast.LENGTH_SHORT)
+                    .show();
             mButtonInventory.setText(R.string.inventory_button_start);
             mButtonInventory.setEnabled(true);
         }
@@ -232,8 +218,8 @@ public class InventryFragment extends Fragment implements CAENRFIDBLEConnectionE
 
 
 
-        reader_position = controllerActivity.Selected_Reader;
-        mReader = controllerActivity.Readers.get(controllerActivity.Selected_Reader);
+        reader_position = mainActivity.Selected_Reader;
+        mReader = mainActivity.Readers.get(mainActivity.Selected_Reader);
         mRFIDTagAdapter = new RFIDTagAdapter(getActivity().getApplicationContext(), R.id.inventory_list);
         mInventoryList.setAdapter(mRFIDTagAdapter);
 
@@ -298,6 +284,6 @@ public class InventryFragment extends Fragment implements CAENRFIDBLEConnectionE
             mButtonInventory.setEnabled(false);
             stopInventory();
         }
-        controllerActivity.returnFromActivity = true;
+        mainActivity.returnFromActivity = true;
     }
 }

@@ -1,4 +1,4 @@
-package com.caen.rfid;
+package com.caen.rfid.models;
 
 import java.util.ArrayList;
 
@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.caen.rfid.R;
+import com.caen.rfid.models.RFIDTag;
 
 public class RFIDTagAdapter extends ArrayAdapter<RFIDTag> {
 

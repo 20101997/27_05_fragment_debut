@@ -10,6 +10,9 @@ import com.caen.RFIDLibrary.CAENRFIDException;
 import com.caen.RFIDLibrary.CAENRFIDLogicalSource;
 import com.caen.RFIDLibrary.CAENRFIDReader;
 import com.caen.RFIDLibrary.CAENRFIDTag;
+import com.caen.rfid.models.Conversion;
+import com.caen.rfid.models.RFIDTag;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,10 +21,6 @@ import androidx.appcompat.widget.Toolbar;
 import static java.lang.String.valueOf;
 
 public class ReadAndWriteActivity extends Activity {
-
-    private Toolbar toolbar;
-    private TextView toolbarTitle;
-    private TextView toolbarSubtitle;
 
 
     private int WORD = 2; //2 bytes
@@ -37,19 +36,13 @@ public class ReadAndWriteActivity extends Activity {
 
 
 
-    @SuppressLint("StaticFieldLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-/*
-        toolbarTitle = this.findViewById(R.id.toolbar_title);
-        toolbarTitle.setText("Update Temperature");
-        toolbarSubtitle = this.findViewById(R.id.toolbar_subtitle);
-        toolbarSubtitle.setText("conatainer 1");*/
 
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.read_and_write_activity);
-        mReader = controllerActivity.Readers.get(controllerActivity.Selected_Reader).getReader();
+        mReader = mainActivity.Readers.get(mainActivity.Selected_Reader).getReader();
         //Get Tag
         Bundle b = this.getIntent().getExtras();
         mTagHex = b.getString("TAG_HEX");

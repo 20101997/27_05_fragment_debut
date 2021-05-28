@@ -248,15 +248,6 @@ public class BLESelection extends Activity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
 
     protected void onPostRefresh(Boolean result) {
         mProgressBarTitle.setText(
